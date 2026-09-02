@@ -18,7 +18,8 @@ CVOEO Fair Housing Project review the finished curriculum before rollout.
 | `04-role-matrix.md` | Who takes what, and role-specific scenario banks for all five worker contexts |
 | `05-legal-frameworks.md` | Every statute, regulation, and guidance document the course must be built on, with citations and current status |
 | `06-glossary.md` | ~110 terms learners and the verification agent both need |
-| `07-verification-agent-prompt.md` | The ready-to-use prompt for your AI agent to audit the built course against this spec |
+| `07-verification-agent-prompt.md` | Prompt for your AI agent to **audit** a built course against this spec (read-only; reports gaps) |
+| `08-remediation-agent-prompt.md` | Prompt for your AI agent to **review and revise** an existing course and the learning paths around it (makes the changes) |
 
 ## The short answer on structure
 
@@ -51,11 +52,23 @@ agent should check.
 
 ## How to use this with your AI agent
 
-1. Build (or buy) the course.
-2. Feed the agent `07-verification-agent-prompt.md` as its system prompt, with
-   `02`, `03`, `04`, `05`, and `06` attached as the reference corpus.
-3. Feed it the course material (outline, slides, script, assessment bank).
-4. It returns a gap report with severities, plus a per-role coverage matrix.
+Both agent prompts take `02`, `03`, `04`, `05`, and `06` as their reference
+corpus. Which one you want depends on whether the training already exists.
+
+**You already have a course built** → use `08-remediation-agent-prompt.md`.
+It inventories your learning paths, audits every asset against a 24-item
+known-defect hit list, and then *makes the corrections* under a tiered change
+authority — Tier 1 fixed outright, Tier 2 fixed and flagged for counsel, Tier 3
+proposed only. It returns revised content, a JSON change log, a residual risk
+register, and a counsel packet. Run it in passes for a large program; the file
+explains how.
+
+**You are building or buying something new** → use
+`07-verification-agent-prompt.md`. It is read-only: a seven-pass audit that
+returns a verdict, coverage tables, and findings, and does not rewrite anything.
+
+Best practice is both: remediate with `08`, then re-check the output with `07`
+in a fresh context, so the auditor is not the same agent that did the editing.
 
 ## Currency warning
 
